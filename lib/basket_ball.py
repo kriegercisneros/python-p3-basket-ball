@@ -1,3 +1,5 @@
+import ipdb
+
 def game_dict():
     return {
         "home": {
@@ -182,3 +184,79 @@ def game_dict():
             ]
         }
     }
+
+def get_all_players():
+    #setting a variable equal to an empty dictionary
+    all_players ={}
+    for team in ['home', 'away']:
+        for player in game_dict()[team]['players']:
+            all_players.update(
+                #updating dictionary to reflect the all players
+                {player['name']:{
+                    "name":player['name'],
+                    "number":player['number'],
+                    "position": player['position'],
+                    "points_per_game": player['points_per_game'],
+                    "rebounds_per_game": player['rebounds_per_game'],
+                    "assists_per_game": player['assists_per_game'],
+                    "steals_per_game": player['steals_per_game'],
+                    "blocks_per_game": player['blocks_per_game'],
+                    "career_points": player['career_points'],
+                    "age": player['age'],
+                    "height_inches": player['height_inches'],
+                    "shoe_brand": player['shoe_brand']
+                    }
+                }
+            )
+    return all_players
+
+def num_points_per_game(player_name):
+     return (get_all_players()[player_name]['points_per_game'])
+    
+num_points_per_game("Rui Hachimura")
+
+def player_age(name):
+     return (get_all_players()[name]['age'])
+
+player_age('Rui Hachimura')
+
+def all_teams():
+    all_team_colors={}
+    for team in ['home', 'away']:
+        all_team_colors.update({
+            game_dict()[team]['team_name']:{
+                'colors': game_dict()[team]['colors']
+                }
+            }
+        )
+    return (all_team_colors)
+all_teams()
+
+def team_colors(team_name):
+    return (all_teams()[team_name]['colors'])
+team_colors("Washington Wizards")
+
+def team_names():
+    team_names=[]
+    for team in all_teams():
+        team_names.append(team)
+    return (team_names)
+team_names()
+
+def player_numbers(passed_in_team):
+    jersey_numbers=[]
+    for team in game_dict():
+        if game_dict()[team]['team_name'] == passed_in_team:
+            players = game_dict()[team]['players']
+            for player in players:
+                jersey_numbers.append(player['number'])
+    return jersey_numbers
+
+player_numbers("Washington Wizards")
+
+def player_stats(player_name):
+    print(get_all_players()[player_name])
+player_stats("Rui Hachimura")
+
+def average_rebounds_by_shoe_brand():
+    
